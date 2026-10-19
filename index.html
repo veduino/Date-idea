@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff4f7">
+<meta name="description" content="A tiny surprise for Nupur, made with a little courage.">
+<title>A Tiny Date for Nupur 💗</title>
+<style>
+  :root {
+    --bg: #fff4f7;
+    --paper: #fffdfd;
+    --pink: #f28caf;
+    --pink-dark: #d95482;
+    --rose: #ffe0ea;
+    --lavender: #eee8ff;
+    --ink: #493744;
+    --muted: #8b7585;
+    --line: #f4dce5;
+    --mint: #e5f7ee;
+    --shadow: 0 18px 55px rgba(183, 102, 133, .14);
+  }
+  * { box-sizing: border-box; }
+  html { min-height: 100%; background: var(--bg); }
+  body {
+    margin: 0; min-height: 100svh; color: var(--ink);
+    font-family: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:
+      radial-gradient(ellipse at 5% 10%, #ffe0e9 0, transparent 32%),
+      radial-gradient(ellipse at 96% 85%, #e9e2ff 0, transparent 30%), var(--bg);
+    display: grid; place-items: center; padding: 22px 16px;
+    overflow-x: hidden;
+  }
+  button, input { font: inherit; }
+  button { -webkit-tap-highlight-color: transparent; }
+  .shell { width: min(100%, 440px); position: relative; z-index: 1; }
+  .topline { display:flex; justify-content:space-between; align-items:center; margin: 0 5px 14px; color:var(--muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase; font-weight:800; }
+  .brand { display:flex; gap:7px; align-items:center; }
+  .brand-mark { width:25px;height:25px;display:grid;place-items:center;background:white;border-radius:9px;box-shadow:0 4px 14px #e8b7c833; }
+  .tiny-label { background:#fff; border:1px solid var(--line); border-radius:99px; padding:7px 10px; letter-spacing:.02em; text-transform:none; }
+  .card {
+    position: relative; background:rgba(255,253,253,.92); border:1px solid rgba(255,255,255,.9);
+    border-radius:30px; padding:27px 23px 23px; box-shadow:var(--shadow); overflow:hidden;
+    animation: rise .55s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .card:before { content:""; position:absolute; width:170px;height:170px; border-radius:50%; background:#fff0f5; top:-110px;right:-65px; z-index:0; }
+  .content { position:relative; z-index:1; }
+  .eyebrow { display:inline-flex; gap:6px; align-items:center; background:#fff0f5; color:var(--pink-dark); border-radius:99px; padding:8px 12px; font-size:12px; font-weight:850; letter-spacing:.04em; }
+  h1 { font-size:clamp(34px, 9vw, 43px); line-height:1.04; letter-spacing:-.055em; margin:18px 0 12px; font-weight:900; }
+  h1 .accent { color:var(--pink-dark); }
+  h2 { font-size:28px; line-height:1.1; letter-spacing:-.04em; margin:15px 0 10px; }
+  p { color:var(--muted); line-height:1.65; font-size:15px; margin:0; }
+  .art { height:174px; display:grid; place-items:center; margin:12px 0 17px; position:relative; }
+  .blob { position:absolute; width:155px;height:145px; background:linear-gradient(145deg,#ffe1eb,#f3e8ff); border-radius:44% 56% 55% 45% / 48% 43% 57% 52%; transform:rotate(-8deg); }
+  .envelope { position:relative; width:145px;height:100px; background:#f6a8c1; border-radius:13px; box-shadow:0 14px 22px #d77b9b30; transform:rotate(-4deg); }
+  .envelope:before { content:"";position:absolute;inset:0;background:#f9bfd1;clip-path:polygon(0 0,50% 55%,100% 0);border-radius:13px 13px 0 0; }
+  .envelope:after { content:"💗";position:absolute;left:calc(50% - 17px);top:36px;width:34px;height:34px;display:grid;place-items:center;background:#fff7fa;border-radius:50%;font-size:17px;box-shadow:0 3px 10px #bd547722; }
+  .spark { position:absolute; font-size:24px; animation: bob 3s ease-in-out infinite; }
+  .s1 {top:12px;left:35px;color:#e99ab5}.s2 {top:25px;right:32px;animation-delay:.5s}.s3 {bottom:13px;left:56px;animation-delay:1s}.s4 {bottom:18px;right:42px;animation-delay:.8s}
+  .btn { border:0; border-radius:16px; min-height:52px; padding:14px 17px; cursor:pointer; font-weight:850; transition:transform .16s, box-shadow .16s, background .16s; display:flex; align-items:center; justify-content:center; gap:9px; text-align:center; }
+  .btn:active { transform:scale(.98); }
+  .btn:focus-visible, .choice:focus-visible, input:focus-visible { outline:3px solid #bb9cf3; outline-offset:3px; }
+  .primary { width:100%; background:var(--pink-dark); color:white; box-shadow:0 9px 18px #d9548230; }
+  .primary:hover { background:#c84675; transform:translateY(-1px); }
+  .secondary { background:#fff0f5; color:var(--pink-dark); border:1px solid #f8d7e2; }
+  .soft { background:#f6f2ff; color:#7862b7; border:1px solid #e7defe; }
+  .btn-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px; }
+  .btn-row .btn { min-height:50px; }
+  .fine { font-size:11px; line-height:1.5; text-align:center; margin-top:14px; color:#a58d9b; }
+  .progress { display:flex; gap:5px; margin:0 0 20px; }
+  .progress span { height:4px; flex:1; background:#f5e5eb; border-radius:99px; }
+  .progress span.on { background:var(--pink); }
+  .note { padding:14px 15px; background:#fff5f8; border:1px dashed #f0bfd0; border-radius:16px; margin:17px 0; }
+  .note strong { display:block; font-size:13px; margin-bottom:4px; }
+  .note p { font-size:13px; }
+  .options { display:grid; gap:9px; margin-top:18px; }
+  .choice { border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:15px; min-height:54px; padding:12px 14px; display:flex; align-items:center; gap:11px; cursor:pointer; text-align:left; }
+  .choice .emoji { width:34px;height:34px;display:grid;place-items:center;background:#fff1f5;border-radius:11px;font-size:18px;flex-shrink:0; }
+  .choice .desc { flex:1; }
+  .choice strong { display:block; font-size:14px; }
+  .choice small { display:block;color:var(--muted);font-size:12px;margin-top:2px; }
+  .choice.selected { border:2px solid var(--pink); background:#fff7fa; padding:11px 13px; box-shadow:0 4px 14px #ef9fbb22; }
+  .choice.selected .check { opacity:1; }
+  .check { color:var(--pink-dark); opacity:0; font-weight:900; }
+  .input-label { display:block;font-size:13px;font-weight:850;margin:16px 0 7px; }
+  input[type="date"] { width:100%; min-height:50px; border:1px solid var(--line); border-radius:14px; padding:12px; color:var(--ink); background:#fff; }
+  .result-icon { width:82px;height:82px;display:grid;place-items:center;border-radius:27px;background:linear-gradient(145deg,#ffe0eb,#f0e9ff);font-size:38px;margin:6px auto 17px;box-shadow:0 10px 25px #dca1c01c; }
+  .center { text-align:center; }
+  .center .eyebrow { margin-inline:auto; }
+  .message { background:#fff7fa;border:1px solid #f7dce6;border-radius:17px;padding:16px;text-align:left;margin:18px 0 15px; }
+  .message .from { font-size:12px;color:var(--pink-dark);font-weight:900;margin-bottom:6px; }
+  .message p { color:#725a6a; font-size:14px; }
+  .footer { text-align:center;color:#b197a5;font-size:11px;margin:16px 8px 0; }
+  .footer a { color:inherit; }
+  .floaties { position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0; }
+  .floaty { position:absolute;bottom:-30px;opacity:0;animation:floatUp linear forwards; }
+  .hidden { display:none !important; }
+  .toast { position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#493744;color:white;padding:11px 15px;border-radius:99px;font-size:13px;box-shadow:var(--shadow);z-index:10;max-width:90vw;text-align:center; }
+  @keyframes rise { from { opacity:0; transform:translateY(12px) scale(.99) } to { opacity:1; transform:translateY(0) scale(1) } }
+  @keyframes bob { 0%,100% { transform:translateY(0) rotate(-5deg) } 50% { transform:translateY(-8px) rotate(5deg) } }
+  @keyframes floatUp { 0% { opacity:0; transform:translateY(0) rotate(0deg) scale(.7) } 12% {opacity:.8} 100% {opacity:0;transform:translateY(-110vh) rotate(35deg) scale(1.2)} }
+  @media (max-width:360px) { .card {padding:23px 17px 19px;border-radius:25px} h1{font-size:34px}.art{height:150px} }
+  @media (prefers-reduced-motion: reduce) { *,*:before,*:after {animation-duration:.01ms !important;animation-iteration-count:1 !important;scroll-behavior:auto !important;transition:none !important} }
+</style>
+</head>
+<body>
+<div class="floaties" id="floaties" aria-hidden="true"></div>
+<main class="shell">
+  <div class="topline">
+    <div class="brand"><span class="brand-mark">♡</span> a tiny surprise</div>
+    <span class="tiny-label">made with a little courage</span>
+  </div>
+
+  <section class="card" id="screen-welcome">
+    <div class="content">
+      <span class="eyebrow">💌 Psst… you have a message</span>
+      <div class="art" aria-hidden="true">
+        <div class="blob"></div><span class="spark s1">✦</span><span class="spark s2">♡</span>
+        <span class="spark s3">✧</span><span class="spark s4">✿</span><div class="envelope"></div>
+      </div>
+      <h1>Hey Nupur,<br><span class="accent">one tiny thing…</span></h1>
+      <p>Nupur, I made you a little something. It’s not homework, not a meme, and definitely not a suspicious link. Probably. 👀</p>
+      <button class="btn primary" style="margin-top:22px" id="open-btn">Okay, I'm curious <span aria-hidden="true">→</span></button>
+      <div class="fine">100% handmade · 0% awkward PowerPoint</div>
+    </div>
+  </section>
+
+  <section class="card hidden" id="screen-reveal">
+    <div class="content">
+      <div class="progress"><span class="on"></span><span class="on"></span><span></span></div>
+      <span class="eyebrow">✨ A very important announcement</span>
+      <h1>Plot twist:<br><span class="accent">I think you're pretty great.</span></h1>
+      <p>And hanging out with you is something I'd like to do more of… so I had a tiny idea. No pressure, just good vibes.</p>
+      <div class="note">
+        <strong>Official scientific research 🧪</strong>
+        <p>Likelihood of a fun time: promising.<br>Likelihood of me overthinking this: 100%.</p>
+      </div>
+      <button class="btn primary" id="question-btn">Reveal the tiny idea 💗</button>
+      <button class="btn secondary" style="width:100%;margin-top:9px" id="back-welcome">Wait, go back 😂</button>
+    </div>
+  </section>
+
+  <section class="card hidden" id="screen-question">
+    <div class="content">
+      <div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span></div>
+      <div class="art" style="height:110px;margin:0 0 5px" aria-hidden="true">
+        <div class="blob" style="width:110px;height:100px"></div><span style="position:relative;font-size:54px;filter:drop-shadow(0 7px 8px #e7a0bc55)">💗</span>
+        <span class="spark s1">✦</span><span class="spark s2">♡</span>
+      </div>
+      <span class="eyebrow">Okay, deep breath…</span>
+      <h1 style="font-size:clamp(32px,8vw,39px)">Nupur, would you go on a <span class="accent">date</span> with me?</h1>
+      <p>Just us, something fun, and absolutely no pressure to say yes. I value our friendship either way. 🫶</p>
+      <div class="options" role="group" aria-label="Choose your response">
+        <button class="choice" id="yes-btn"><span class="emoji">🥹</span><span class="desc"><strong>Yes, let's do it!</strong><small>Okay wait, that's cute.</small></span><span class="check">✓</span></button>
+        <button class="choice" id="plan-btn"><span class="emoji">👀</span><span class="desc"><strong>Maybe… what's the plan?</strong><small>Pitch me your best idea.</small></span><span class="check">↗</span></button>
+        <button class="choice" id="no-btn"><span class="emoji">💛</span><span class="desc"><strong>I see you as a friend</strong><small>It's okay — honesty is appreciated.</small></span><span class="check">✓</span></button>
+      </div>
+      <div class="fine">Whatever your answer, no guilt trip. Promise.</div>
+    </div>
+  </section>
+
+  <section class="card hidden" id="screen-date">
+    <div class="content">
+      <span class="eyebrow">🥳 Okay, let's make a plan</span>
+      <h2>Pick our kind of adventure</h2>
+      <p>Choose whatever sounds fun. You can change your mind anytime.</p>
+      <div class="options" role="group" aria-label="Date idea">
+        <button class="choice selected" data-date="Coffee & a little walk"><span class="emoji">☕</span><span class="desc"><strong>Coffee & a little walk</strong><small>Low-key, lots to talk about.</small></span><span class="check">✓</span></button>
+        <button class="choice" data-date="Food mission"><span class="emoji">🍜</span><span class="desc"><strong>Food mission</strong><small>Find something delicious.</small></span><span class="check">✓</span></button>
+        <button class="choice" data-date="Games & friendly competition"><span class="emoji">🎳</span><span class="desc"><strong>Games & friendly competition</strong><small>Winner gets bragging rights.</small></span><span class="check">✓</span></button>
+        <button class="choice" data-date="Surprise me (but tell me the plan first!)"><span class="emoji">🎀</span><span class="desc"><strong>Surprise me</strong><small>But tell me the plan first!</small></span><span class="check">✓</span></button>
+      </div>
+      <label class="input-label" for="date-input">Optional: a day that works for you</label>
+      <input id="date-input" type="date">
+      <button class="btn primary" style="width:100%;margin-top:17px" id="send-plan">Send my pick 💌</button>
+      <button class="btn secondary" style="width:100%;margin-top:9px" id="back-question">Back</button>
+      <p class="fine">This opens your messaging app with a draft — it won't send anything without you.</p>
+    </div>
+  </section>
+
+  <section class="card hidden" id="screen-maybe">
+    <div class="content">
+      <div class="result-icon">🧐</div>
+      <div class="center">
+        <span class="eyebrow">A fair question!</span>
+        <h2>Allow me to present… <span style="color:var(--pink-dark)">the plan.</span></h2>
+        <p>Something relaxed, somewhere you feel comfortable, and a chance to spend time together outside our usual routine.</p>
+      </div>
+      <div class="note"><strong>My pitch:</strong><p>Good food or coffee, silly conversation, and no expectation beyond seeing if we have a nice time.</p></div>
+      <button class="btn primary" style="width:100%" id="maybe-yes">Sounds good — let's plan it 💗</button>
+      <button class="btn secondary" style="width:100%;margin-top:9px" id="maybe-back">Let me think about it</button>
+      <p class="fine">No rush. You can take your time to decide.</p>
+    </div>
+  </section>
+
+  <section class="card hidden" id="screen-no">
+    <div class="content center">
+      <div class="result-icon">🌷</div>
+      <span class="eyebrow">Thanks for being honest</span>
+      <h2>All good, genuinely. 💛</h2>
+      <p>I value you and our friendship, and I don't want you to feel awkward or pressured. Thanks for hearing me out.</p>
+      <div class="message"><div class="from">A tiny promise</div><p>No guilt, no convincing, no weirdness required. Take care of yourself, okay?</p></div>
+      <button class="btn secondary" style="width:100%" id="no-finish">Close this little page</button>
+    </div>
+  </section>
+
+  <section class="card hidden" id="screen-final">
+    <div class="content center">
+      <div class="result-icon">🎀</div>
+      <span class="eyebrow">A new little adventure?</span>
+      <h2>Okay, this made me smile. 💗</h2>
+      <p>Pick a date idea and send it over so we can figure out the details together.</p>
+      <div class="message">
+        <div class="from">YOUR TINY DATE INVITATION</div>
+        <p id="summary-text">Coffee & a little walk</p>
+      </div>
+      <button class="btn primary" style="width:100%" id="send-message">Send response in WhatsApp 💬</button>
+      <button class="btn secondary" style="width:100%;margin-top:9px" id="copy-message">Copy response</button>
+      <p class="fine">Your message is only sent if you choose to send it in your messaging app.</p>
+    </div>
+  </section>
+
+  <div class="footer">a little courage looks cute on you ♡</div>
+</main>
+<div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  // CUSTOMIZE THESE BEFORE SHARING:
+  const YOUR_NAME = "Nupur";
+  // WhatsApp destination: India country code + your number, without the + sign.
+  const YOUR_WHATSAPP_NUMBER = "919644656317";
+
+  const ids = ["welcome","reveal","question","date","maybe","no","final"];
+  const screens = Object.fromEntries(ids.map(id => [id, document.getElementById("screen-" + id)]));
+  const toast = document.getElementById("toast");
+  let selectedDate = "Coffee & a little walk";
+  let selectedResponse = "yes";
+  let draftedMessage = "";
+
+  function show(id) {
+    Object.entries(screens).forEach(([key, el]) => el.classList.toggle("hidden", key !== id));
+    window.scrollTo({top:0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+  }
+  function notify(message) {
+    toast.textContent = message;
+    toast.classList.remove("hidden");
+    clearTimeout(notify.timer);
+    notify.timer = setTimeout(() => toast.classList.add("hidden"), 2500);
+  }
+  function hearts(count=18) {
+    const layer = document.getElementById("floaties");
+    const glyphs = ["♡","♥","✦","✿","💕"];
+    for(let i=0;i<count;i++) {
+      const el = document.createElement("span");
+      el.className = "floaty";
+      el.textContent = glyphs[Math.floor(Math.random()*glyphs.length)];
+      el.style.left = (Math.random()*100) + "%";
+      el.style.fontSize = (13+Math.random()*17) + "px";
+      el.style.animationDuration = (4+Math.random()*4) + "s";
+      el.style.animationDelay = (Math.random()*.8) + "s";
+      el.style.color = ["#ed86aa","#b49be9","#f4b5c9"][Math.floor(Math.random()*3)];
+      layer.appendChild(el);
+      setTimeout(() => el.remove(), 9000);
+    }
+  }
+  function buildMessage() {
+    const date = document.getElementById("date-input").value;
+    draftedMessage = `Hey! 💗 I vote for: ${selectedDate}.${date ? " A day that could work for me: " + date + "." : ""} Let's figure out the details together!`;
+    document.getElementById("summary-text").textContent = selectedDate + (date ? " · " + date : "");
+  }
+  function sendViaWhatsApp(message) {
+    const number = YOUR_WHATSAPP_NUMBER.replace(/\D/g, "");
+    const url = number
+      ? `https://wa.me/${number}?text=${encodeURIComponent(message)}`
+      : `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+  document.getElementById("open-btn").addEventListener("click", () => { show("reveal"); hearts(9); });
+  document.getElementById("question-btn").addEventListener("click", () => { show("question"); hearts(15); });
+  document.getElementById("back-welcome").addEventListener("click", () => show("welcome"));
+  document.getElementById("yes-btn").addEventListener("click", () => { selectedResponse="yes"; show("date"); hearts(24); });
+  document.getElementById("plan-btn").addEventListener("click", () => show("maybe"));
+  document.getElementById("no-btn").addEventListener("click", () => show("no"));
+  document.getElementById("maybe-yes").addEventListener("click", () => { selectedResponse="yes"; show("date"); hearts(15); });
+  document.getElementById("maybe-back").addEventListener("click", () => show("question"));
+  document.getElementById("back-question").addEventListener("click", () => show("question"));
+  document.getElementById("no-finish").addEventListener("click", () => { show("welcome"); notify("Thanks for giving it a look 🌷"); });
+  document.querySelectorAll("[data-date]").forEach(button => {
+    button.addEventListener("click", () => {
+      selectedDate = button.dataset.date;
+      document.querySelectorAll("[data-date]").forEach(other => other.classList.toggle("selected", other === button));
+    });
+  });
+  document.getElementById("send-plan").addEventListener("click", () => {
+    buildMessage();
+    show("final");
+    hearts(18);
+  });
+  document.getElementById("send-message").addEventListener("click", () => {
+    buildMessage();
+    sendViaWhatsApp(draftedMessage);
+  });
+  document.getElementById("copy-message").addEventListener("click", async () => {
+    buildMessage();
+    try {
+      await navigator.clipboard.writeText(draftedMessage);
+      notify("Response copied 💌");
+    } catch(e) {
+      const field = document.createElement("textarea");
+      field.value = draftedMessage; document.body.appendChild(field); field.select();
+      const ok = document.execCommand("copy"); field.remove();
+      notify(ok ? "Response copied 💌" : "Please copy the message: " + draftedMessage);
+    }
+  });
+})();
+</script>
+</body>
+</html>
